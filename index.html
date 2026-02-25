@@ -112,7 +112,7 @@ nav {
   border:1px solid var(--border); padding:8px 20px; margin-bottom:44px;
   background:rgba(201,169,106,0.04); position:relative; overflow:hidden;
 }
-.hero-badge::before { content:'—'; color:var(--gold-dim); }
+.hero-badge::before { content:''; color:var(--gold-dim); }
 .hero-badge::after {
   content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
   background:linear-gradient(120deg,transparent 0%,rgba(255,220,140,0.12) 40%,rgba(255,240,180,0.45) 50%,rgba(255,220,140,0.12) 60%,transparent 100%);
@@ -147,6 +147,213 @@ section { padding:110px 60px; }
 .reveal.visible { opacity:1; transform:none; }
 .d1 { transition-delay:.12s; } .d2 { transition-delay:.24s; }
 .d3 { transition-delay:.36s; } .d4 { transition-delay:.48s; }
+
+/* ── SHOWREEL VIDEO ── */
+.showreel-wrap {
+  position: relative;
+  margin-top: 60px;
+  /* cinematic 16:9 container */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--border2);
+  cursor: none;
+}
+/* gold top glow line */
+.showreel-wrap::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px; z-index: 3;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+/* corner brackets — cinematic framing */
+.showreel-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 3;
+  background:
+    linear-gradient(to right,  var(--border) 1px, transparent 1px) 0 0 / 28px 28px no-repeat,
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px) 0 0 / 28px 28px no-repeat,
+    linear-gradient(to left,   var(--border) 1px, transparent 1px) 100% 0 / 28px 28px no-repeat,
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px) 100% 0 / 28px 28px no-repeat,
+    linear-gradient(to right,  var(--border) 1px, transparent 1px) 0 100% / 28px 28px no-repeat,
+    linear-gradient(to top,    var(--border) 1px, transparent 1px) 0 100% / 28px 28px no-repeat,
+    linear-gradient(to left,   var(--border) 1px, transparent 1px) 100% 100% / 28px 28px no-repeat,
+    linear-gradient(to top,    var(--border) 1px, transparent 1px) 100% 100% / 28px 28px no-repeat;
+  pointer-events: none;
+}
+
+/* the YouTube IFrame API injects an <iframe> inside #ytPlayer */
+#ytPlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+#ytPlayer iframe {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  pointer-events: none; /* let our overlay capture clicks */
+}
+
+/* the actual video fills the container */
+.showreel-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* dark overlay — dims slightly, reveals on hover */
+.showreel-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: rgba(0,0,0,0.35);
+  transition: background 0.45s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.showreel-wrap:hover .showreel-overlay {
+  background: rgba(0,0,0,0.55);
+}
+
+/* play/pause button — centre of overlay */
+.showreel-btn {
+  width: 72px; height: 72px;
+  border: 1px solid rgba(201,169,106,0.5);
+  border-radius: 50%;
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  cursor: none;
+  position: relative; overflow: hidden;
+  transition: border-color .35s, transform .35s, background .35s;
+  /* hidden by default, shown on hover */
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity .35s ease, transform .35s ease, border-color .35s, background .35s;
+}
+.showreel-wrap:hover .showreel-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+.showreel-btn:hover {
+  border-color: var(--gold);
+  background: rgba(201,169,106,0.15);
+  transform: scale(1.08) !important;
+}
+/* shine sweep on button hover */
+.showreel-btn::after {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,220,140,0.2), transparent);
+  transition: left 0.5s ease;
+}
+.showreel-btn:hover::after { left: 100%; }
+
+/* SVG icons inside button */
+.showreel-btn svg {
+  width: 22px; height: 22px;
+  fill: var(--gold);
+  flex-shrink: 0;
+  transition: transform .25s ease;
+}
+.showreel-btn:hover svg { transform: scale(1.12); }
+/* pause icon — two bars */
+.showreel-btn .icon-pause { display: none; }
+.showreel-btn .icon-play  { display: block; margin-left: 3px; /* optical centre */ }
+.showreel-wrap.is-playing .showreel-btn .icon-play  { display: none; }
+.showreel-wrap.is-playing .showreel-btn .icon-pause { display: block; }
+
+/* label below button */
+.showreel-label {
+  position: absolute; bottom: 20px; left: 0; right: 0;
+  text-align: center; z-index: 4;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(201,169,106,0.6);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s, transform .35s;
+}
+.showreel-wrap:hover .showreel-label {
+  opacity: 1; transform: translateY(0);
+}
+
+/* eyebrow label top-left */
+.showreel-tag {
+  position: absolute; top: 18px; left: 20px; z-index: 4;
+  font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(201,169,106,0.55);
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity .4s .05s, transform .4s .05s;
+}
+.showreel-wrap:hover .showreel-tag { opacity: 1; transform: translateY(0); }
+.showreel-tag::before {
+  content: '';
+  display: block; width: 20px; height: 1px;
+  background: var(--gold-dim);
+}
+
+/* mute button top-right */
+.showreel-mute {
+  position: absolute; top: 16px; right: 18px; z-index: 4;
+  width: 34px; height: 34px; border: 1px solid rgba(201,169,106,0.25);
+  border-radius: 50%; background: rgba(10,10,10,0.5); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity .4s .05s, transform .4s .05s, border-color .3s, background .3s;
+}
+.showreel-wrap:hover .showreel-mute { opacity: 1; transform: translateY(0); }
+.showreel-mute:hover { border-color: var(--gold); background: rgba(201,169,106,0.1); }
+.showreel-mute svg { width: 14px; height: 14px; fill: var(--gold-dim); transition: fill .3s; }
+.showreel-mute:hover svg { fill: var(--gold); }
+.showreel-mute .icon-muted   { display: none; }
+.showreel-mute .icon-unmuted { display: block; }
+.showreel-wrap.is-muted .showreel-mute .icon-unmuted { display: none; }
+.showreel-wrap.is-muted .showreel-mute .icon-muted   { display: block; }
+
+/* progress bar at very bottom */
+.showreel-progress {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px; z-index: 4;
+  background: rgba(255,255,255,0.08);
+}
+.showreel-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--gold-dim), var(--gold));
+  width: 0%; transition: none;
+}
+
+/* placeholder when no video src */
+.showreel-placeholder {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+}
+.showreel-placeholder-icon {
+  font-size: 48px; opacity: .25;
+}
+.showreel-placeholder-text {
+  font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--text3);
+}
+
+/* responsive */
+@media(max-width:960px){
+  .showreel-wrap { margin-top: 48px; }
+  .showreel-btn  { width: 60px; height: 60px; }
+  .showreel-btn svg { width: 18px; height: 18px; }
+}
+@media(max-width:600px){
+  .showreel-wrap { margin-top: 36px; }
+  .showreel-btn  { width: 52px; height: 52px; }
+  .showreel-tag, .showreel-mute { display: none; }
+  .showreel-label { font-size: 8px; letter-spacing: .2em; }
+}
 
 /* ── ABOUT ── */
 #about { background:var(--bg2); }
@@ -427,31 +634,194 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
 .footer-nav a:hover { color:var(--gold); }
 .footer-copy { font-size:11px; letter-spacing:.08em; color:var(--text3); }
 
+/* ── BRANDS CAROUSEL ── */
+#brands {
+  background: var(--bg);
+  padding: 0;                        /* no section padding — slim strip */
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  overflow: hidden;
+}
+
+.brands-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 36px 60px 0;
+  font-size: 9px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.brands-header::before,
+.brands-header::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--border2);
+}
+
+/* infinite scroll track */
+.brands-track-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 0 36px;
+  /* left + right fade masks */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+.brands-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  /* infinite scroll: duplicated items, animation loops seamlessly */
+  animation: brandsScroll 28s linear infinite;
+}
+.brands-track:hover { animation-play-state: paused; }
+
+@keyframes brandsScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* move exactly half — we duplicate items */
+}
+
+/* single brand logo item */
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 52px;
+  border-right: 1px solid var(--border2);
+  flex-shrink: 0;
+  min-width: 160px;
+  height: 64px;
+  position: relative;
+  transition: opacity .35s;
+}
+.brand-item:last-child { border-right: none; }
+
+/* logo image — replace src with real logo later */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.28;
+  filter: grayscale(1) brightness(1.8);
+  transition: opacity .45s ease, filter .45s ease, transform .35s ease;
+  white-space: nowrap;
+}
+.brand-logo:hover {
+  opacity: 0.75;
+  filter: grayscale(0) brightness(1);
+  transform: translateY(-2px);
+}
+
+/* logo mark — geometric shape as placeholder until real logos added */
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--gold-dim);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold-dim);
+  font-family: 'Jost', sans-serif;
+  letter-spacing: .04em;
+  transition: border-color .35s, color .35s;
+}
+.brand-logo:hover .brand-mark {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* when you add real <img> logos later: */
+.brand-logo img {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  transition: color .35s;
+}
+.brand-logo:hover .brand-name { color: var(--text); }
+
+/* responsive */
+@media(max-width: 960px) {
+  .brands-header { padding: 28px 28px 0; }
+  .brand-item { padding: 0 36px; min-width: 130px; }
+  .brands-track { animation-duration: 22s; }
+}
+@media(max-width: 600px) {
+  .brands-header { padding: 22px 20px 0; font-size: 8.5px; letter-spacing: .28em; }
+  .brand-item { padding: 0 28px; min-width: 110px; height: 56px; }
+  .brands-track-wrap { padding: 24px 0 28px; }
+  .brands-track { animation-duration: 18s; }
+  .brand-name { font-size: 10px; }
+  .brand-mark { width: 22px; height: 22px; font-size: 9px; }
+}
+
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
 
-/* ── TABLET 960px ── */
+/* ── TABLET ≤ 960px ── */
 @media(max-width:960px){
+  /* Nav */
   nav { padding:0 24px; height:60px; }
   .nav-links { display:none; }
   .nav-hamburger { display:flex; }
 
+  /* Global sections */
   section { padding:80px 28px; }
   #hero { padding:100px 28px 80px; }
   .hero-corner { display:none; }
+
+  /* Hero content */
   .hero-badge { font-size:9px; letter-spacing:.25em; padding:7px 14px; margin-bottom:32px; }
-  .hero-tagline { font-size:13px; margin-bottom:40px; }
+  .hero-tagline { font-size:13px; margin-bottom:40px; max-width:100%; }
   .hero-cta { gap:12px; }
 
   /* About */
   .about-grid { grid-template-columns:1fr; gap:44px; margin-top:48px; }
+  .about-highlight { font-size:20px; }
   .stats-panel { display:grid; grid-template-columns:repeat(3,1fr); }
   .stat-row { border-bottom:none !important; border-right:1px solid var(--border2); padding:28px 20px; }
   .stat-row:last-child { border-right:none; }
   .stat-num { font-size:44px; }
+  .showreel-wrap { margin-top:48px; }
 
-  /* Services — 2×2 grid */
+  /* Brands carousel */
+  .brands-header { padding:28px 28px 0; }
+  .brand-item { padding:0 36px; min-width:130px; }
+  .brands-track { animation-duration:24s; }
+
+  /* Services — 2×2 */
   .services-grid { grid-template-columns:repeat(2,1fr); }
   .service-card { border-bottom:1px solid var(--border2); }
   .service-card:nth-child(2n){ border-right:none; }
@@ -459,16 +829,14 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
 
   /* Portfolio */
   .portfolio-grid { columns:2; column-gap:12px; }
-  .portfolio-filter { margin:28px 0 36px; }
+  .portfolio-filter { margin:28px 0 36px; flex-wrap:wrap; }
   .filter-btn { padding:6px 14px; font-size:9px; }
   .ph-tall { height:260px; } .ph-med { height:190px; } .ph-short { height:150px; }
 
   /* Tools */
   .tools-grid { flex-wrap:wrap; }
   .tool-item { flex:1 1 33.33%; border-bottom:1px solid var(--border); }
-  /* spotlight child offset fix */
   .tools-spotlight { display:none; }
-  .tool-item:nth-child(2){ /* 1-indexed after spotlight div = item 2 */ }
   .tool-item:nth-child(4){ border-right:none; }
   .tool-item:nth-child(5){ border-bottom:none; }
   .tool-item:nth-child(6){ border-right:none; border-bottom:none; }
@@ -479,8 +847,8 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
   .exp-name-new { font-size:22px; }
 
   /* Testimonials */
-  .testi-card { padding:44px 36px 40px; }
-  .testi-text { font-size:19px; }
+  .testi-card { padding:44px 36px 40px; max-width:100%; }
+  .testi-text { font-size:18px; }
 
   /* Contact */
   .contact-grid { grid-template-columns:1fr; gap:48px; margin-top:48px; }
@@ -491,79 +859,124 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
   .footer-nav { display:none; }
 }
 
-/* ── MOBILE 600px ── */
+/* ── MOBILE ≤ 600px ── */
 @media(max-width:600px){
-  section { padding:64px 20px; }
-  #hero { padding:86px 20px 70px; }
+  section { padding:60px 20px; }
+  #hero { padding:84px 20px 64px; }
 
-  .hero-title { font-size:clamp(50px,15vw,78px); line-height:.88; }
-  .hero-tagline { font-size:13px; }
-  .hero-badge { font-size:8.5px; letter-spacing:.2em; padding:6px 12px; margin-bottom:28px; }
-  .hero-cta { flex-direction:column; align-items:center; }
-  .btn-primary,.btn-ghost { width:100%; max-width:260px; text-align:center; padding:13px 20px; }
-  .hero-scroll { display:none; }
+  /* Hero */
+  .hero-title { font-size:clamp(46px,13vw,72px); line-height:.9; }
+  .hero-tagline { font-size:12.5px; line-height:1.75; margin-bottom:36px; }
+  .hero-badge { font-size:8.5px; letter-spacing:.2em; padding:6px 12px; margin-bottom:26px; }
+  .hero-cta { flex-direction:column; align-items:center; gap:10px; }
+  .btn-primary,.btn-ghost {
+    width:min(280px,100%);
+    text-align:center; justify-content:center;
+    padding:0 24px; height:46px;
+  }
+  .hero-scroll { margin-top:40px; }
+  .scroll-line { height:36px; }
 
-  .section-title { font-size:clamp(28px,8vw,42px); }
-  .section-eyebrow { font-size:9px; letter-spacing:.25em; }
+  /* Section labels */
+  .section-title { font-size:clamp(26px,8vw,40px); }
+  .section-eyebrow { font-size:9px; letter-spacing:.22em; }
+  .ornament { margin:20px auto 0; }
+
+  /* Showreel */
+  .showreel-wrap { margin-top:36px; }
+  .showreel-btn { width:54px; height:54px; }
+  .showreel-tag, .showreel-mute { display:none; }
+  .showreel-label { font-size:8px; letter-spacing:.2em; }
 
   /* About */
-  .about-highlight { font-size:18px; }
-  .about-text { font-size:14px; }
-  .stats-panel { grid-template-columns:1fr !important; }
-  .stat-row { border-right:none !important; border-bottom:1px solid var(--border2) !important; padding:24px 22px; }
+  .about-highlight { font-size:17px; }
+  .about-text { font-size:13.5px; }
+  .stats-panel { grid-template-columns:1fr !important; display:block !important; }
+  .stat-row { border-right:none !important; border-bottom:1px solid var(--border2) !important; padding:22px 22px; }
   .stat-row:last-child { border-bottom:none !important; }
-  .stat-num { font-size:48px; }
+  .stat-num { font-size:46px; }
+
+  /* Brands */
+  .brands-header { padding:20px 20px 0; font-size:8.5px; letter-spacing:.25em; }
+  .brand-item { padding:0 24px; min-width:100px; height:54px; }
+  .brands-track-wrap { padding:20px 0 24px; }
+  .brands-track { animation-duration:16s; }
+  .brand-name { font-size:10px; }
+  .brand-mark { width:22px; height:22px; font-size:9px; }
 
   /* Services — single column */
   .services-grid { grid-template-columns:1fr; }
-  .service-card { border-right:none !important; border-bottom:1px solid var(--border2) !important; padding:36px 24px 40px; }
+  .service-card { border-right:none !important; border-bottom:1px solid var(--border2) !important; padding:32px 22px 36px; }
   .service-card:last-child { border-bottom:none !important; }
-  .service-icon-wrap { width:42px; height:42px; margin-bottom:22px; }
+  .service-icon-wrap { width:42px; height:42px; margin-bottom:20px; }
+  .service-name { font-size:20px; }
+  .service-desc { font-size:12px; }
 
   /* Portfolio */
   .portfolio-grid { columns:1; }
-  .ph-tall { height:220px; } .ph-med { height:190px; } .ph-short { height:160px; }
-  .portfolio-filter { gap:5px; }
-  .filter-btn { padding:6px 10px; font-size:8.5px; letter-spacing:.12em; }
+  .ph-tall { height:200px; } .ph-med { height:180px; } .ph-short { height:150px; }
+  .portfolio-filter { gap:6px; }
+  .filter-btn { padding:6px 11px; font-size:8.5px; letter-spacing:.1em; }
 
-  /* Tools */
+  /* Tools — 2-col grid */
   .tools-grid { flex-wrap:wrap; }
-  .tool-item { flex:1 1 50%; }
+  .tool-item { flex:1 1 50%; border-bottom:1px solid var(--border); }
   .tool-item:nth-child(even){ border-right:none; }
-  .tool-item { border-bottom:1px solid var(--border); }
   .tool-item:nth-last-child(-n+2){ border-bottom:none; }
-  .tool-icon { width:42px; height:42px; }
+  .tool-icon { width:42px; height:42px; margin-bottom:14px; }
+  .tool-name { font-size:9.5px; }
 
   /* Experience */
-  .exp-card { padding:28px 20px; }
-  .exp-name-new { font-size:19px; }
+  .exp-grid { grid-template-columns:1fr; }
+  .exp-card { padding:26px 20px; }
+  .exp-name-new { font-size:18px; }
   .exp-card-header { flex-direction:column-reverse; gap:10px; align-items:flex-start; }
+  .exp-tag-new { font-size:8.5px; }
 
   /* Testimonials */
-  .testi-card { padding:36px 20px 32px; }
-  .testi-text { font-size:16px; }
-  .testi-quote-icon { font-size:72px; }
+  .testi-card { padding:32px 20px 28px; max-width:100%; }
+  .testi-text { font-size:15px; margin-top:20px; }
+  .testi-quote-icon { font-size:64px; top:8px; left:20px; }
+  .testi-prev,.testi-next { width:38px; height:38px; font-size:16px; }
 
   /* Contact */
-  .contact-tagline { font-size:22px; }
-  .social-row { gap:8px; }
+  .contact-tagline { font-size:21px; }
+  .social-row { gap:8px; flex-wrap:wrap; }
   .social-btn { padding:8px 12px; font-size:8.5px; }
+  .contact-form input,.contact-form textarea { font-size:12px; }
 
   /* Footer */
-  footer { padding:22px 20px; gap:12px; }
-  .footer-logo { font-size:18px; }
-  .footer-copy { font-size:10px; }
+  footer { padding:20px 20px; gap:12px; text-align:center; }
+  .footer-logo { font-size:17px; }
+  .footer-copy { font-size:9.5px; }
 }
 
-/* ── SMALL MOBILE 380px ── */
+/* ── SMALL MOBILE ≤ 380px ── */
 @media(max-width:380px){
-  section { padding:56px 16px; }
-  #hero { padding:80px 16px 64px; }
-  .hero-title { font-size:clamp(42px,16vw,64px); }
+  section { padding:52px 16px; }
+  #hero { padding:76px 16px 60px; }
+  .hero-title { font-size:clamp(38px,14vw,58px); }
   .hero-badge { display:none; }
-  .service-card { padding:28px 18px 32px; }
-  .testi-card { padding:28px 16px 26px; }
-  .exp-card { padding:24px 16px; }
+  .hero-tagline { font-size:12px; margin-bottom:30px; }
+  .btn-primary,.btn-ghost { height:44px; }
+
+  .section-title { font-size:clamp(24px,8vw,36px); }
+
+  .showreel-wrap { margin-top:28px; }
+
+  .service-card { padding:28px 16px 32px; }
+  .service-name { font-size:19px; }
+
+  .testi-card { padding:28px 16px 24px; }
+  .testi-text { font-size:14px; }
+
+  .exp-card { padding:22px 14px; }
+  .exp-name-new { font-size:17px; }
+
+  .brand-item { padding:0 18px; min-width:88px; }
+  .brands-track { animation-duration:14s; }
+
+  footer { padding:18px 16px; }
 }
 </style>
 </head>
@@ -607,7 +1020,7 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
   <div class="hero-corner tl"></div><div class="hero-corner tr"></div>
   <div class="hero-corner bl"></div><div class="hero-corner br"></div>
   <div class="hero-inner">
-    <div class="hero-badge">Kolkata-based Visual Studio</div>
+    <div class="hero-badge">— Kolkata-based Visual Studio —</div>
     <h1 class="hero-title">Vintage<em>Creation</em></h1>
     <p class="hero-tagline">Crafting stories through frames, colors, and emotions. A self-made creative studio specialising in video editing, color grading, and visual storytelling for brands, artists, and campaigns.</p>
     <div class="hero-cta">
@@ -627,6 +1040,45 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
     <div class="ornament-diamond"></div><div class="ornament-dot"></div>
     <div class="ornament-line"></div>
   </div>
+
+  <!-- ── SHOWREEL VIDEO ── -->
+  <div class="showreel-wrap reveal d2" id="showreelWrap">
+
+    <!-- YouTube IFrame API target — JS builds the player here -->
+    <div id="ytPlayer"></div>
+
+    <!-- Custom overlay — sits above iframe, captures hover interactions -->
+    <div class="showreel-overlay" id="showreelOverlay">
+
+      <!-- eyebrow tag top-left -->
+      <div class="showreel-tag">Showreel 2024</div>
+
+      <!-- mute toggle top-right -->
+      <button class="showreel-mute" id="showreelMute" aria-label="Toggle mute">
+        <!-- sound-on icon -->
+        <svg class="icon-unmuted" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <!-- sound-off icon -->
+        <svg class="icon-muted" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+      </button>
+
+      <!-- centre play/pause button -->
+      <button class="showreel-btn" id="showreelBtn" aria-label="Play / Pause">
+        <svg class="icon-play"  viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+
+      <!-- bottom hint label -->
+      <div class="showreel-label" id="showreelLabel">Click to Pause</div>
+    </div>
+
+    <!-- thin gold progress bar at bottom edge -->
+    <div class="showreel-progress">
+      <div class="showreel-progress-fill" id="showreelFill"></div>
+    </div>
+
+  </div>
+  <!-- ── END SHOWREEL ── -->
+
   <div class="about-grid">
     <div class="reveal d1">
       <p class="about-highlight">"Every frame should carry the weight of a feeling."</p>
@@ -637,12 +1089,126 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
       <div class="about-btn"><a href="#contact" class="btn-primary">Work With Me</a></div>
     </div>
     <div class="stats-panel reveal d2" id="statsPanel">
-      <div class="stat-row"><div class="stat-num">50+</div><div class="stat-label">Projects Delivered</div></div>
-      <div class="stat-row"><div class="stat-num">4+</div><div class="stat-label">Years of Experience</div></div>
+      <div class="stat-row"><div class="stat-num">160+</div><div class="stat-label">Projects Delivered</div></div>
+      <div class="stat-row"><div class="stat-num">7+</div><div class="stat-label">Years of Experience</div></div>
       <div class="stat-row"><div class="stat-num">30+</div><div class="stat-label">Brand Collaborations</div></div>
     </div>
   </div>
 </section>
+
+<!-- BRANDS CAROUSEL — placed between About and Services for natural narrative flow -->
+<!-- "Here's who I've worked with" right after the intro, before showing what I do -->
+<div id="brands" class="reveal">
+
+  <div class="brands-header">Trusted by Brands</div>
+
+  <div class="brands-track-wrap">
+    <div class="brands-track" id="brandsTrack">
+
+      <!-- SET 1 — original 11 logos -->
+      <!-- Replace .brand-mark + .brand-name with <img src="logo.svg" alt="Brand"> when you have real logos -->
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">AXIS MAX</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">H</div><span class="brand-name">HDFC LIFE</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">ACKO</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">W</div><span class="brand-name">WHISPER</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">ABP DIGITAL</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">N</div><span class="brand-name">NYKAA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">P</div><span class="brand-name">PATANJALI</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">C</div><span class="brand-name">COOKME</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">S</div><span class="brand-name">SENCO GOLD & DIAMONDS</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">T</div><span class="brand-name">THE TELEGRAPH</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">AMRIT CEMENT</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">M</div><span class="brand-name">MEDANTA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">O</div><span class="brand-name">OH! CALCUTTA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">C</div><span class="brand-name">CHOWMAN</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">Z</div><span class="brand-name">ZANDU FAST RELIEF</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">Z</div><span class="brand-name">ZANDU</span></div>
+      </div>
+
+      <!-- SET 2 — exact duplicate for seamless infinite loop -->
+            <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">AXIS MAX</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">H</div><span class="brand-name">HDFC LIFE</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">ACKO</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">W</div><span class="brand-name">WHISPER</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">ABP DIGITAL</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">N</div><span class="brand-name">NYKAA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">P</div><span class="brand-name">PATANJALI</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">C</div><span class="brand-name">COOKME</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">S</div><span class="brand-name">SENCO GOLD & DIAMONDS</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">T</div><span class="brand-name">THE TELEGRAPH</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">A</div><span class="brand-name">AMRIT CEMENT</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">M</div><span class="brand-name">MEDANTA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">O</div><span class="brand-name">OH! CALCUTTA</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">C</div><span class="brand-name">CHOWMAN</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">Z</div><span class="brand-name">ZANDU FAST RELIEF</span></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-logo"><div class="brand-mark">Z</div><span class="brand-name">ZANDU</span></div>
+      </div>
+    </div><!-- end brands-track -->
+  </div><!-- end brands-track-wrap -->
+
+</div><!-- end #brands -->
 
 <!-- SERVICES -->
 <section id="services">
@@ -857,7 +1423,7 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
   <div class="contact-grid">
     <div class="reveal d1">
       <p class="contact-tagline">Have a project in mind? Let's make something great together.</p>
-      <div class="contact-detail"><span class="contact-icon">📧</span><div class="contact-val"><a href="mailto:hello@vintagecreation.in">hello@vintagecreation.in</a></div></div>
+      <div class="contact-detail"><span class="contact-icon">📧</span><div class="contact-val"><a href="/cdn-cgi/l/email-protection#90f8f5fcfcffd0e6f9fee4f1f7f5f3e2f5f1e4f9fffebef9fe"><span class="__cf_email__" data-cfemail="d3bbb6bfbfbc93a5babda7b2b4b6b0a1b6b2a7babcbdfdbabd">[email&#160;protected]</span></a></div></div>
       <div class="contact-detail"><span class="contact-icon">📍</span><div class="contact-val">Kolkata, West Bengal, India</div></div>
       <div class="social-row">
         <a href="#" class="social-btn">Instagram</a>
@@ -889,7 +1455,7 @@ footer { background:var(--bg); border-top:1px solid var(--border2); padding:36px
   <div class="footer-copy">© 2025 Vintage Creation. Kolkata, India.</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── CURSOR ── */
 const cRing=document.getElementById('cursorRing'), cDot=document.getElementById('cursorDot');
 let mx=0,my=0,rx=0,ry=0;
@@ -1003,6 +1569,161 @@ document.querySelectorAll('.exp-card').forEach(card=>{
   setActive(0); resetTimer();
 })();
 
+/* ── SHOWREEL — YouTube IFrame API ── */
+(function(){
+  const VIDEO_ID   = 'sN3ppVMniLs';
+  const wrap       = document.getElementById('showreelWrap');
+  const btn        = document.getElementById('showreelBtn');
+  const muteBtn    = document.getElementById('showreelMute');
+  const overlay    = document.getElementById('showreelOverlay');
+  const fill       = document.getElementById('showreelFill');
+  const label      = document.getElementById('showreelLabel');
+  if(!wrap) return;
+
+  let player       = null;   // YT.Player instance
+  let userPaused   = false;  // did the user manually pause?
+  let isMuted      = true;   // starts muted (required for autoplay)
+  let progressRaf  = null;
+
+  /* ── 1. Load YouTube IFrame API script once ── */
+  if(!window._ytAPILoaded) {
+    window._ytAPILoaded = true;
+    const s = document.createElement('script');
+    s.src   = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  }
+
+  /* ── 2. YouTube fires this when API is ready ── */
+  window.onYouTubeIframeAPIReady = function() {
+    player = new YT.Player('ytPlayer', {
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay   : 0,        // we control play via IntersectionObserver
+        mute       : 1,        // must start muted for autoplay policy
+        loop       : 1,
+        playlist   : VIDEO_ID, // needed for loop to work
+        controls   : 0,        // hide native YouTube controls
+        rel        : 0,        // no related videos at end
+        modestbranding: 1,
+        iv_load_policy: 3,     // hide annotations
+        disablekb  : 1,        // disable keyboard shortcuts
+        fs         : 0,        // disable fullscreen button
+        cc_load_policy: 0,
+        showinfo   : 0,
+      },
+      events: {
+        onReady  : onPlayerReady,
+        onStateChange: onStateChange,
+      }
+    });
+  };
+
+  function onPlayerReady(e) {
+    /* style the iframe to fill the container */
+    const iframe = wrap.querySelector('iframe');
+    if(iframe) {
+      iframe.style.cssText = [
+        'position:absolute','inset:0','width:100%','height:100%',
+        'border:none','pointer-events:none','display:block'
+      ].join(';');
+    }
+    wrap.classList.add('is-muted');
+
+    /* start IntersectionObserver now that player is ready */
+    startObserver();
+
+    /* kick off progress loop */
+    tickProgress();
+  }
+
+  function onStateChange(e) {
+    if(e.data === YT.PlayerState.PLAYING) {
+      wrap.classList.add('is-playing');
+      if(label) label.textContent = 'Click to Pause';
+    } else {
+      wrap.classList.remove('is-playing');
+      if(label) label.textContent = 'Click to Play';
+    }
+  }
+
+  /* ── 3. Play / Pause helpers ── */
+  function playVideo() {
+    if(!player) return;
+    player.playVideo();
+    wrap.classList.add('is-playing');
+    if(label) label.textContent = 'Click to Pause';
+  }
+
+  function pauseVideo() {
+    if(!player) return;
+    player.pauseVideo();
+    wrap.classList.remove('is-playing');
+    if(label) label.textContent = 'Click to Play';
+  }
+
+  /* ── 4. Click overlay → toggle play/pause ── */
+  overlay.addEventListener('click', () => {
+    if(!player) return;
+    const state = player.getPlayerState();
+    if(state === YT.PlayerState.PLAYING) {
+      userPaused = true;
+      pauseVideo();
+    } else {
+      userPaused = false;
+      playVideo();
+    }
+  });
+
+  /* ── 5. Mute button ── */
+  muteBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    if(!player) return;
+    isMuted = !isMuted;
+    isMuted ? player.mute() : player.unMute();
+    wrap.classList.toggle('is-muted', isMuted);
+  });
+
+  /* ── 6. IntersectionObserver — auto-play / pause on scroll ── */
+  function startObserver() {
+    /* Observe the VIDEO PLAYER itself — not the whole section.
+       This way the video plays exactly when the player is in view
+       and pauses as soon as it scrolls out — up OR down. */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          /* player is in viewport — play unless user manually paused */
+          if(!userPaused) playVideo();
+        } else {
+          /* player has left viewport (scroll up or down) — always pause */
+          pauseVideo();
+          userPaused = false; // reset so it auto-resumes next visit
+        }
+      });
+    }, {
+      threshold: 0.4   // 40% of the player must be visible to trigger play
+    });
+
+    io.observe(wrap); // observe the showreel container, not the section
+  }
+
+  /* ── 7. Progress bar via rAF loop ── */
+  function tickProgress() {
+    cancelAnimationFrame(progressRaf);
+    function loop() {
+      if(player && typeof player.getDuration === 'function') {
+        const dur = player.getDuration();
+        const cur = player.getCurrentTime();
+        if(dur > 0 && fill) {
+          fill.style.width = ((cur / dur) * 100).toFixed(2) + '%';
+        }
+      }
+      progressRaf = requestAnimationFrame(loop);
+    }
+    progressRaf = requestAnimationFrame(loop);
+  }
+
+})();
+
 /* ── NAV ACTIVE ── */
 const navSecs=document.querySelectorAll('section[id]');
 const navAs=document.querySelectorAll('.nav-links a');
@@ -1017,11 +1738,11 @@ const hamburger=document.getElementById('hamburger');
 const mobileNav=document.getElementById('mobileNav');
 function closeMobileNav(){ hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow=''; }
 hamburger.addEventListener('click',()=>{
-  const open=mobileNav.classList.toggle('open');
-  hamburger.classList.toggle('open',open);
-  document.body.style.overflow=open?'hidden':'';
+  const isOpen=mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
 });
-mobileNav.addEventListener('click',e=>{ if(e.target===mobileNav)closeMobileNav(); });
+mobileNav.addEventListener('click',e=>{ if(e.target===mobileNav) closeMobileNav(); });
 </script>
 </body>
 </html>
