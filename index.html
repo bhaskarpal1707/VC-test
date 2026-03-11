@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="styles.css" />
     <style>
       *,
       *::before,
@@ -2972,8 +2973,16 @@
           <a href="#contact" class="btn-ghost">Contact Me</a>
         </div>
       </div>
-      <div class="hero-scroll">
+      <!-- <div class="hero-scroll">
         <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div> -->
+
+      <!-- Replace your existing .hero-scroll block with this -->
+      <div class="hero-scroll2">
+        <div class="scroll-mouse2">
+          <div class="scroll-wheel2"></div>
+        </div>
         <span>Scroll</span>
       </div>
     </section>
@@ -3392,13 +3401,621 @@
         <div class="ornament-dot"></div>
         <div class="ornament-line"></div>
       </div>
-      <div class="portfolio-filter reveal d2">
+      <!-- <div class="portfolio-filter reveal d2">
         <button class="filter-btn active">All</button>
         <button class="filter-btn">Brand Film</button>
         <button class="filter-btn">Social Media</button>
         <button class="filter-btn">Music Video</button>
         <button class="filter-btn">Commercial</button>
+
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Music Video</button>
+        <button class="filter-btn">Commercial</button>
+      </div> -->
+
+      <div class="portfolio-filter reveal d2">
+        <div class="filter-ui-row">
+          <span class="filter-label">Filter by</span>
+
+          <!-- Custom Dropdown -->
+          <div class="filter-dropdown" id="filterDropdown">
+            <button
+              class="filter-trigger"
+              id="filterTrigger"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <span class="filter-trigger-bar"></span>
+              <span class="filter-trigger-icon" id="filterTriggerIcon">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="4"
+                    width="12"
+                    height="8"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="1"
+                    y1="4"
+                    x2="13"
+                    y2="4"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="4"
+                    y1="2"
+                    x2="3"
+                    y2="4"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="7"
+                    y1="2"
+                    x2="6"
+                    y2="4"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="10"
+                    y1="2"
+                    x2="9"
+                    y2="4"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  />
+                  <path
+                    d="M5.5 7L9 9L5.5 11V7Z"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="filter-trigger-text" id="filterTriggerText"
+                >All Categories</span
+              >
+              <span class="filter-trigger-chevron"></span>
+            </button>
+
+            <div class="filter-panel" id="filterPanel" role="listbox">
+              <!-- sticky header -->
+              <div class="filter-panel-header">
+                <span class="filter-panel-title">Select Category</span>
+                <button class="filter-panel-clear" id="filterClear">
+                  Reset
+                </button>
+              </div>
+
+              <!-- scrollable options body -->
+              <div class="filter-panel-body">
+                <div
+                  class="filter-option active"
+                  data-filter="all"
+                  data-label="All Categories"
+                  data-count="6"
+                  role="option"
+                  aria-selected="true"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">All Work</div>
+                    <div class="filter-option-desc">Complete portfolio</div>
+                  </div>
+                  <!-- <div class="filter-option-count">6</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="brand-film"
+                  data-label="Brand Film"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Brand Film</div>
+                    <div class="filter-option-desc">
+                      Campaign & identity films
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="social-media"
+                  data-label="Social Media"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Social Media</div>
+                    <div class="filter-option-desc">
+                      Reels, stories & content
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="commercial"
+                  data-label="Commercial"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Commercial</div>
+                    <div class="filter-option-desc">
+                      Product & lifestyle ads
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="music-video"
+                  data-label="Music Video"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Music Video</div>
+                    <div class="filter-option-desc">
+                      Cinematic visual stories
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="agency"
+                  data-label="Agency"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Agency</div>
+                    <div class="filter-option-desc">
+                      Creative collaborations
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+
+                <div
+                  class="filter-option"
+                  data-filter="short-film"
+                  data-label="Short Film"
+                  data-count="1"
+                  role="option"
+                  aria-selected="false"
+                >
+                  <div class="filter-option-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="12"
+                        height="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="1"
+                        y1="4"
+                        x2="13"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="4"
+                        y1="2"
+                        x2="3"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="7"
+                        y1="2"
+                        x2="6"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="10"
+                        y1="2"
+                        x2="9"
+                        y2="4"
+                        stroke="currentColor"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M5.5 7L9 9L5.5 11V7Z"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="filter-option-info">
+                    <div class="filter-option-name">Short Film</div>
+                    <div class="filter-option-desc">
+                      Documentary & narrative
+                    </div>
+                  </div>
+                  <!-- <div class="filter-option-count">1</div> -->
+                  <div class="filter-option-check"></div>
+                </div>
+              </div>
+              <!-- /filter-panel-body -->
+
+              <!-- sticky footer -->
+              <div class="filter-panel-footer">
+                <div class="filter-panel-footer-dot"></div>
+                <div class="filter-panel-footer-dot"></div>
+                <div class="filter-panel-footer-dot"></div>
+                <span class="filter-panel-footer-text"
+                  >Visual Storytelling Studio</span
+                >
+              </div>
+            </div>
+            <!-- /filter-panel -->
+          </div>
+          <!-- /filter-dropdown -->
+
+          <!-- Result count pill -->
+          <div class="filter-result-pill" id="filterResultPill">
+            <span class="filter-result-num" id="filterResultNum">6</span>
+            <span class="filter-result-sep"></span>
+            <span id="filterResultLabel">Works</span>
+          </div>
+        </div>
+        <!-- /filter-ui-row -->
       </div>
+
       <div class="portfolio-grid reveal">
         <div class="portfolio-item">
           <div class="portfolio-thumb ph-tall"><span>🎬</span></div>
@@ -3536,7 +4153,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section id="testimonials">
+    <!-- <section id="testimonials">
       <div class="section-eyebrow reveal">Happy Clients</div>
       <h2 class="section-title reveal d1">My Clients Say</h2>
       <div class="ornament reveal d2">
@@ -3601,6 +4218,451 @@
           <button class="testi-next" id="testiNext">&#8594;</button>
         </div>
       </div>
+    </section> -->
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="section-eyebrow reveal">Happy Clients</div>
+      <h2 class="section-title reveal d1">My Clients Say</h2>
+      <div class="ornament reveal d2">
+        <div class="ornament-line"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-line"></div>
+      </div>
+
+      <div class="rv-wrap reveal d2">
+        <!-- ROW 1 — scrolls left -->
+        <div class="rv-row">
+          <div class="rv-track">
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Vintage Creation understands emotion and timing better than
+                anyone we've worked with. Every project feels crafted, not just
+                produced.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">B</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Brand Partner</div>
+                  <div class="rv-role">National Campaign, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Professional, fast, and visually outstanding. The color grade
+                elevated everything — our engagement tripled after launch.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">C</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Creative Director</div>
+                  <div class="rv-role">Regional Agency, Kolkata</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                From brief to final cut, the attention to detail was remarkable.
+                It felt like they understood our brand even better than we did.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">M</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Marketing Head</div>
+                  <div class="rv-role">Consumer Brand, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The reel they created for our product launch went viral. It
+                wasn't luck — it was craft. We've worked with them on every
+                campaign since.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">F</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Founder</div>
+                  <div class="rv-role">D2C Startup, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Absolutely cinematic. The music video came out exactly as we
+                imagined — actually, better. The colour palette alone told the
+                whole story.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">A</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Artist Manager</div>
+                  <div class="rv-role">Music Video, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- duplicate set for seamless loop -->
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Vintage Creation understands emotion and timing better than
+                anyone we've worked with. Every project feels crafted, not just
+                produced.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">B</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Brand Partner</div>
+                  <div class="rv-role">National Campaign, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Professional, fast, and visually outstanding. The color grade
+                elevated everything — our engagement tripled after launch.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">C</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Creative Director</div>
+                  <div class="rv-role">Regional Agency, Kolkata</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                From brief to final cut, the attention to detail was remarkable.
+                It felt like they understood our brand even better than we did.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">M</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Marketing Head</div>
+                  <div class="rv-role">Consumer Brand, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The reel they created for our product launch went viral. It
+                wasn't luck — it was craft. We've worked with them on every
+                campaign since.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">F</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Founder</div>
+                  <div class="rv-role">D2C Startup, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Absolutely cinematic. The music video came out exactly as we
+                imagined — actually, better. The colour palette alone told the
+                whole story.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">A</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Artist Manager</div>
+                  <div class="rv-role">Music Video, 2023</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row 1 -->
+
+        <!-- ROW 2 — scrolls right (reverse) -->
+        <div class="rv-row">
+          <div class="rv-track rv-reverse">
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                They took our rough brief and turned it into something
+                award-worthy. Working with Vintage Creation is seamless — they
+                just get it.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">S</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Strategy Lead</div>
+                  <div class="rv-role">Agency Collab, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The turnaround time was unreal without any drop in quality. The
+                edit had rhythm, soul, and a visual identity that was completely
+                ours.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">P</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Producer</div>
+                  <div class="rv-role">Short Film, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Our Instagram content went from average to exceptional
+                overnight. The reels they produced have been our highest
+                performing content ever.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">D</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Digital Manager</div>
+                  <div class="rv-role">FMCG Brand, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                A rare editor who thinks like a director. The final film had
+                depth, pacing, and intention in every single cut. Truly
+                exceptional work.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">R</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Director</div>
+                  <div class="rv-role">Commercial, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The colour grading transformed our footage into something
+                cinematic. Clients kept asking us what our secret was — it was
+                Vintage Creation.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">V</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Videographer</div>
+                  <div class="rv-role">Wedding & Events, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- duplicate set for seamless loop -->
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                They took our rough brief and turned it into something
+                award-worthy. Working with Vintage Creation is seamless — they
+                just get it.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">S</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Strategy Lead</div>
+                  <div class="rv-role">Agency Collab, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The turnaround time was unreal without any drop in quality. The
+                edit had rhythm, soul, and a visual identity that was completely
+                ours.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">P</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Producer</div>
+                  <div class="rv-role">Short Film, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                Our Instagram content went from average to exceptional
+                overnight. The reels they produced have been our highest
+                performing content ever.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">D</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Digital Manager</div>
+                  <div class="rv-role">FMCG Brand, 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                A rare editor who thinks like a director. The final film had
+                depth, pacing, and intention in every single cut. Truly
+                exceptional work.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">R</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Director</div>
+                  <div class="rv-role">Commercial, 2023</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-card">
+              <div class="rv-quote">"</div>
+              <div class="rv-stars">
+                <span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span><span class="rv-star">★</span
+                ><span class="rv-star">★</span>
+              </div>
+              <div class="rv-text">
+                The colour grading transformed our footage into something
+                cinematic. Clients kept asking us what our secret was — it was
+                Vintage Creation.
+              </div>
+              <div class="rv-author">
+                <div class="rv-avatar">V</div>
+                <div class="rv-author-info">
+                  <div class="rv-name">Videographer</div>
+                  <div class="rv-role">Wedding & Events, 2024</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row 2 -->
+      </div>
     </section>
 
     <!-- CONTACT -->
@@ -3631,12 +4693,8 @@
                 ></a
               > -->
 
-              <a
-                href="mailto:workwithavc@gmail.com"
-                ><span
-                  class="__cf_email__"
-                  >workwithavc@gmail.com</span
-                ></a
+              <a href="mailto:workwithavc@gmail.com"
+                ><span class="__cf_email__">workwithavc@gmail.com</span></a
               >
             </div>
           </div>
@@ -3659,7 +4717,10 @@
           >
             <input name="name" type="text" placeholder="Your Name" />
             <input name="email" type="email" placeholder="Email Address" />
-            <textarea name="message" placeholder="Tell me about your project..."></textarea>
+            <textarea
+              name="message"
+              placeholder="Tell me about your project..."
+            ></textarea>
             <div>
               <button type="submit" class="btn-primary">Send Message</button>
             </div>
@@ -3667,6 +4728,43 @@
         </div>
       </div>
     </section>
+
+    <!-- BRAND IDENTITY — Lens Zoom -->
+    <div id="brand-identity">
+      <!-- cinematic edge vignette -->
+      <div class="bi-vignette"></div>
+
+      <!-- focus breathing glow -->
+      <div class="bi-focus-glow"></div>
+
+      <!-- lens barrel rings -->
+      <div class="bi-barrel">
+        <div class="bi-barrel-ring"></div>
+        <div class="bi-barrel-ring"></div>
+        <div class="bi-barrel-ring"></div>
+        <div class="bi-barrel-ring"></div>
+        <div class="bi-barrel-ring"></div>
+        <div class="bi-barrel-ring"></div>
+      </div>
+
+      <!-- focus ring grip texture -->
+      <div class="bi-grip"></div>
+
+      <!-- focus distance label arc -->
+      <div class="bi-focus-ring-label"></div>
+
+      <!-- glass glare sweep -->
+      <div class="bi-glare"></div>
+
+      <!-- logo — blurs out then snaps into focus -->
+      <div class="bi-logo-wrap">
+        <img
+          src="AVC LOGO.png"
+          alt="A Vintage Creation"
+          class="bi-logo"
+        />
+      </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -4201,5 +5299,7 @@
         if (e.target === mobileNav) closeMobileNav();
       });
     </script>
+
+    <script src="script.js"></script>
   </body>
 </html>
