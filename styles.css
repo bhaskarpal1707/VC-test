@@ -505,7 +505,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--surface2), var(--bg2));
+  /* background: linear-gradient(135deg, var(--surface2), var(--bg2)); */
 }
 .portfolio-thumb span {
   position: relative;
